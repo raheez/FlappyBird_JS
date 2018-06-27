@@ -35,7 +35,7 @@ function moveup() {
     by -=25;
 }
 
-var score;
+var score =0;
 function draw() {
 
     ctx.drawImage(bg,0,0);
@@ -50,12 +50,12 @@ function draw() {
             pipe.push({
 
                 x:cvs.width,
-                y:Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height
+                y:Math.floor(Math.random()*pipeNorth.height)-pipeNorth.height
             });
         }
 
         //my version
-        if ((by<=pipe[i].height) && (bx+ bird.width >= pipe[i].x && bx+ bird.width <= pipe[i].x + pipeNorth.width  )  || (by+bird.height>=pipe[i].y+constant) && (bx+ bird.width >= pipe[i].x && bx+ bird.width <= pipe[i].x + pipeNorth.width )
+        if ((by<=pipe[i].y + pipeNorth.height) && (bx+ bird.width >= pipe[i].x && bx+ bird.width <= pipe[i].x + pipeNorth.width  )  || (by+bird.height>=pipe[i].y+constant) && (bx+ bird.width >= pipe[i].x && bx+ bird.width <= pipe[i].x + pipeNorth.width )
                 || (by+bird.height>=cvs.height-fg.height)) {
             location.reload(true);
         }
@@ -70,6 +70,9 @@ function draw() {
         if (pipe[i].x==5) {
             score++;
         }
+
+        
+        
     }
 
     
@@ -79,6 +82,9 @@ function draw() {
 
     by = by + gravity;
 
+    ctx.fillStyle ="#000";
+    ctx.font = "20px verdana";
+    ctx.fillText("Score : "+score,10,cvs.height-20); 
 
     requestAnimationFrame(draw);
 
