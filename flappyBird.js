@@ -21,21 +21,44 @@ var gap = 85;
 var constant = pipeNorth.height+ gap;
 var bx = 10;
 var by = 150;
+var gravity = 1.5;
 
+
+var pipe = [];
+pipe[0] = {
+    x : cvs.width,
+    y : 0
+};
+
+document.addEventListener("keydown",moveup);
+function moveup() {
+    by -=25;
+}
 
 function draw() {
 ctx.drawImage(bg,0,0);
-ctx.drawImage(fg,0,cvs.height-fg.height);
 
 ctx.drawImage(bird,bx,by);
-ctx.drawImage(pipeNorth,100,0);
-ctx.drawImage(pipeSouth,100,constant);
 
-by = by + 1;
+for (let i = 0; i < pipe.length; i++) {
+    ctx.drawImage(pipeNorth,pipe[i].x,pipe[i].y);
+    ctx.drawImage(pipeSouth,pipe[i].x,pipe[i].y+ constant);
+    pipe[i].x -= 1;
+
+    if (pipe[i].x==105) {
+        pipe.push({
+            x:cvs.width,
+            y:Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height
+        })
+    }
+}
+
+ctx.drawImage(fg,0,cvs.height-fg.height);
+
+by = by + gravity;
+
 
 requestAnimationFrame(draw);
-
-
 
 }
 
