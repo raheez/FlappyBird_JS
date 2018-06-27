@@ -16,6 +16,13 @@ pipeSouth.src = "images/pipeSouth.png";
 bird.src = "images/bird.png";
 
 
+var fly = new Audio();
+var scor = new Audio();
+
+
+fly.src = "sounds/fly.mp3";
+scor.src = "sounds/score.mp3";
+
 
 var gap = 85;
 var constant;
@@ -33,6 +40,7 @@ pipe[0] = {
 document.addEventListener("keydown",moveup);
 function moveup() {
     by -=25;
+    fly.play();
 }
 
 var score =0;
@@ -69,6 +77,7 @@ function draw() {
 
         if (pipe[i].x==5) {
             score++;
+            scor.play();
         }
 
         
